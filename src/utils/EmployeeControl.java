@@ -47,54 +47,7 @@ public class EmployeeControl {
 				System.out.println("Endereço do empregado atualizado com sucesso!\n");
 			}
 			case 3 -> {
-				System.out.println("""
-
-						Insira o novo tipo de empregado:
-						1 - Assalariado
-						2 - Comissionado
-						3 - Horista""");
-
-				int oldId = employee.getId();
-				String oldName = employee.getName();
-				String oldAddress = employee.getAddress();
-				String oldPaymentMethod = employee.getPayType();
-				boolean oldUnion = employee.getUnion();
-				String oldPaymentSchedule = employee.getPaySchedule();
-				int newType = input.nextInt();
-
-				switch (newType) {
-				case 1 -> {
-					employees.remove(employee);
-					Salaried newSalaried = new Salaried(oldId, oldName, oldAddress, oldUnion, oldPaymentMethod,
-							oldPaymentSchedule);
-					employees.add(newSalaried);
-					System.out.println("Informe o valor da remuneração mensal (xxxx,xx): ");
-					newSalaried.setWage(input.nextDouble());
-					System.out.println("Tipo de empregado alterado para Assalariado com sucesso!\n");
-				}
-				case 2 -> {
-					employees.remove(employee);
-					Commissioned newCommissioned = new Commissioned(oldId, oldName, oldAddress, oldUnion,
-							oldPaymentMethod, oldPaymentSchedule);
-					newCommissioned.setUnion(oldUnion);
-					employees.add(newCommissioned);
-					System.out.println("Informe o valor da remuneração mensal (xxxx,xx): ");
-					newCommissioned.setSalary(input.nextDouble());
-					System.out.println("Informe o valor da comissão por venda (0,xx): ");
-					newCommissioned.setCommPerSale(input.nextDouble());
-					System.out.println("Tipo de empregado alterado para Comissionado com sucesso!\n");
-				}
-				case 3 -> {
-					employees.remove(employee);
-					Hourly newHourly = new Hourly(oldId, oldName, oldAddress, oldUnion, oldPaymentMethod,
-							oldPaymentSchedule);
-					employees.add(newHourly);
-					System.out.println("Informe o valor da hora trabalhada (xxxx,xx): ");
-					newHourly.setHourlyPay(input.nextDouble());
-					System.out.println("Tipo de empregado alterado para Horista com sucesso!\n");
-				}
-				default -> System.out.println("Opção inválida! Abortando operação\n");
-				}
+				changeEmp(employees, employee);
 			}
 			case 4 -> {
 				System.out.println(
@@ -135,6 +88,59 @@ public class EmployeeControl {
 
 		} else {
 			System.out.println("Empregado não encontrado! Verifique a matrícula!\n");
+		}
+	}
+	
+	private static void changeEmp(ArrayList<Employee> employees, Employee employee) {
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("""
+
+				Insira o novo tipo de empregado:
+				1 - Assalariado
+				2 - Comissionado
+				3 - Horista""");
+
+		int oldId = employee.getId();
+		String oldName = employee.getName();
+		String oldAddress = employee.getAddress();
+		String oldPaymentMethod = employee.getPayType();
+		boolean oldUnion = employee.getUnion();
+		String oldPaymentSchedule = employee.getPaySchedule();
+		int newType = input.nextInt();
+
+		switch (newType) {
+		case 1 -> {
+			employees.remove(employee);
+			Salaried newSalaried = new Salaried(oldId, oldName, oldAddress, oldUnion, oldPaymentMethod,
+					oldPaymentSchedule);
+			employees.add(newSalaried);
+			System.out.println("Informe o valor da remuneração mensal (xxxx,xx): ");
+			newSalaried.setWage(input.nextDouble());
+			System.out.println("Tipo de empregado alterado para Assalariado com sucesso!\n");
+		}
+		case 2 -> {
+			employees.remove(employee);
+			Commissioned newCommissioned = new Commissioned(oldId, oldName, oldAddress, oldUnion,
+					oldPaymentMethod, oldPaymentSchedule);
+			newCommissioned.setUnion(oldUnion);
+			employees.add(newCommissioned);
+			System.out.println("Informe o valor da remuneração mensal (xxxx,xx): ");
+			newCommissioned.setSalary(input.nextDouble());
+			System.out.println("Informe o valor da comissão por venda (0,xx): ");
+			newCommissioned.setCommPerSale(input.nextDouble());
+			System.out.println("Tipo de empregado alterado para Comissionado com sucesso!\n");
+		}
+		case 3 -> {
+			employees.remove(employee);
+			Hourly newHourly = new Hourly(oldId, oldName, oldAddress, oldUnion, oldPaymentMethod,
+					oldPaymentSchedule);
+			employees.add(newHourly);
+			System.out.println("Informe o valor da hora trabalhada (xxxx,xx): ");
+			newHourly.setHourlyPay(input.nextDouble());
+			System.out.println("Tipo de empregado alterado para Horista com sucesso!\n");
+		}
+		default -> System.out.println("Opção inválida! Abortando operação\n");
 		}
 	}
 
