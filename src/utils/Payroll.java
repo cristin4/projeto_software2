@@ -25,17 +25,22 @@ public class Payroll {
 
 			Unionist unionist = Syndicate.search(unionists, Syndicate.calcSyndId(employee.getId()));
 
-			if (employee instanceof Salaried) {
-				Payroll.salariedWage((Salaried) employee, unionist, schedule, schedules);
-			} else if (employee instanceof Commissioned) {
-				Payroll.commissionedWage((Commissioned) employee, unionist, schedule, schedules);
-			} else if (employee instanceof Hourly) {
-				Payroll.hourlyWage((Hourly) employee, unionist, schedule, schedules);
-			}
+			runPay(employee, unionist, schedule, schedules);
 
 		}
 	}
-	
+
+	private static void runPay(Employee employee, Unionist unionist, String schedule, ArrayList<String> schedules) {
+
+		if (employee instanceof Salaried) {
+			Payroll.salariedWage((Salaried) employee, unionist, schedule, schedules);
+		} else if (employee instanceof Commissioned) {
+			Payroll.commissionedWage((Commissioned) employee, unionist, schedule, schedules);
+		} else if (employee instanceof Hourly) {
+			Payroll.hourlyWage((Hourly) employee, unionist, schedule, schedules);
+		}
+	}
+
 	private static int getDays(String schedule) {
 		if (schedule.endsWith("Mensalmente")) {
 			return 30;
@@ -54,7 +59,7 @@ public class Payroll {
 		if (schedule.equals(employee.getPaySchedule())) {
 			employee.setWorkDays();
 			int days;
-			
+
 			days = getDays(schedule);
 
 			if (employee.getWorkDays() == days) {
@@ -113,7 +118,7 @@ public class Payroll {
 			int days;
 
 			days = getDays(schedule);
-			
+
 			if (employee.getWorkDays() == days) {
 				System.out.println(employee.getName() + ":");
 				System.out.printf("Pagamento por hora trabalhada R$ %.2f\n", employee.getHourlyPay());
