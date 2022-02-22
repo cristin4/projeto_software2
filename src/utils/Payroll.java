@@ -35,6 +35,18 @@ public class Payroll {
 
 		}
 	}
+	
+	private static int getDays(String schedule) {
+		if (schedule.endsWith("Mensalmente")) {
+			return 30;
+		} else if (schedule.endsWith("Quinzenalmente")) {
+			return 15;
+		} else if (schedule.endsWith("Semanalmente")) {
+			return 7;
+		} else {
+			return 0;
+		}
+	}
 
 	public static void salariedWage(Salaried employee, Unionist unionist, String schedule,
 			ArrayList<String> schedules) {
@@ -42,15 +54,8 @@ public class Payroll {
 		if (schedule.equals(employee.getPaySchedule())) {
 			employee.setWorkDays();
 			int days;
-			if (schedule.endsWith("Mensalmente")) {
-				days = 30;
-			} else if (schedule.endsWith("Quinzenalmente")) {
-				days = 15;
-			} else if (schedule.endsWith("Semanalmente")) {
-				days = 7;
-			} else {
-				days = 0;
-			}
+			
+			days = getDays(schedule);
 
 			if (employee.getWorkDays() == days) {
 				System.out.println(employee.getName() + ":");
@@ -77,15 +82,8 @@ public class Payroll {
 		if (schedule.equals(employee.getPaySchedule())) {
 			employee.setWorkDays();
 			int days;
-			if (schedule.endsWith("Mensalmente")) {
-				days = 30;
-			} else if (schedule.endsWith("Quinzenalmente")) {
-				days = 15;
-			} else if (schedule.endsWith("Semanalmente")) {
-				days = 7;
-			} else {
-				days = 0;
-			}
+
+			days = getDays(schedule);
 
 			if (employee.getWorkDays() == days) {
 				System.out.println(employee.getName() + ":");
@@ -113,15 +111,9 @@ public class Payroll {
 		if (schedule.equals(employee.getPaySchedule())) {
 
 			int days;
-			if (schedule.endsWith("Mensalmente")) {
-				days = 30;
-			} else if (schedule.endsWith("Quinzenalmente")) {
-				days = 15;
-			} else if (schedule.endsWith("Semanalmente")) {
-				days = 7;
-			} else {
-				days = 0;
-			}
+
+			days = getDays(schedule);
+			
 			if (employee.getWorkDays() == days) {
 				System.out.println(employee.getName() + ":");
 				System.out.printf("Pagamento por hora trabalhada R$ %.2f\n", employee.getHourlyPay());
